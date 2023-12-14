@@ -1,10 +1,10 @@
-import alpaca_interaction as alpaca
+import alpaca_interactions as alpaca
 import datetime
 
 # List of symbols
 symbols = ["AAPL"]
-max_number_of_candles = 100
-timeframe = "1day"
+max_number_of_candles = 1000
+timeframe = "30min"
 
 # Function to run the trading bot
 def auto_run_trading_bot():
