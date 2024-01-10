@@ -1,4 +1,4 @@
-![Build Your Own Trading Bot Title Image](/workspaces/something-cool/images/build_your_own_trading_bot_title_image.png)
+![Build Your Own Trading Bot Title Image](https://github.com/jimtin/something-cool/blob/main/images/build_your_own_trading_bot_title_image.png)
 
 # Build Your Own Trading Bot
 Building your own trading bot can be a ton of fun - but also pretty intimidating to get started! 
