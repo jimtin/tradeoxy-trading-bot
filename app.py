@@ -1,6 +1,6 @@
 import alpaca_interactions as alpaca
 import datetime
-import indicators
+import strategies
 
 # List of symbols
 symbols = ["AAPL"]
@@ -18,7 +18,7 @@ def auto_run_trading_bot():
     end_date = datetime.datetime.now() - datetime.timedelta(days=1) # Note that if you have a premium subscription you can remove this restriction
     # Set the start date to one year ago
     start_date = end_date - datetime.timedelta(days=365)
-    #### Calculate the MACD ####
+    #### Calculate the RSI Strategy ####
     for symbol in symbols:
         # Convert symbol to a list
         symbol = [symbol]
@@ -30,15 +30,16 @@ def auto_run_trading_bot():
             end_date=end_date, 
             limit=max_number_of_candles
         )
-        # Calculate the MACD
-        macd_data = indicators.calc_macd(
-            historical_data=symbol_historical_data, 
-            macd_fast_period=12, 
-            macd_slow_period=26, 
-            macd_signal_period=9
+        # Calculate the RSI High Low Strategy
+        rsi_high_low_strategy = strategies.calc_strategy(
+            historical_data=symbol_historical_data,
+            strategy_name="rsi_high_low",
+            rsi_period=14,
+            rsi_high=70,
+            rsi_low=30
         )
-        # Print the MACD data
-        print(macd_data["values"])
+        # Print the RSI Strategy data
+        print(rsi_high_low_strategy)
 
 
 # Main function for program
