@@ -13,6 +13,11 @@ We also know that in real life sometimes you just need some live support! If you
 ## Education Resources
 The best way to use this repo is in companionship with the various pieces of content I've created. Here's a list you can choose from. 
 
-### Blog Content
-1. Build Your Own Trading Bot Dev Environment that works from Anywhere and includes TA Lib, AI
-2. Build Your Own Stock Trading Bot with Alpaca Markets: Historical Price Data Retrieval
+### Blog Content on TradeOxy
+1. [Build Your Own Trading Bot Dev Environment that works from Anywhere and includes TA Lib, AI](https://www.tradeoxy.com/blog/build-your-own-trading-bot-dev-environment-that-works-from-anywhere-includes-technical-indicators-from-ta-lib-and-cutting-edge-ai/)
+2. [Build Your Own Stock Trading Bot with Alpaca Markets: Historical Price Data Retrieval](https://www.tradeoxy.com/blog/build-stock-trading-bot-with-alpaca-markets/)
+3. [What is the RSI in Stocks and How Can I Add it to my Stock Trading Bot](https://www.tradeoxy.com/blog/add-rsi-to-my-stock-trading-bot/)
+4. [Build Your Own Algorithmic Trading Strategies: RSI High Low Trading Strategy](https://www.tradeoxy.com/blog/add-rsi-to-my-stock-trading-bot/)
+
+### Blog Content on Medium
+1. [Build Your Own Trading Bot Development Envrionment](https://medium.com/@appnologyjames/build-your-own-trading-bot-development-environment-5163443da220)
