@@ -23,3 +23,4 @@ The best way to use this repo is in companionship with the various pieces of con
 1. [Build Your Own Trading Bot Development Envrionment](https://medium.com/@appnologyjames/build-your-own-trading-bot-development-environment-5163443da220)
 2. [Step-by-Step Guide to Get Any US Stock Price Data with Python and Alpaca Markets](https://appnologyjames.medium.com/step-by-step-guide-get-any-us-stock-price-data-with-python-and-alpaca-markets-8134fa3a5763)
 3. [Step-by-Step Guide to Adding the RSI to Your Stock Trading Bot using Python and Alpaca Markets](https://appnologyjames.medium.com/step-by-step-guide-to-adding-the-rsi-to-your-stock-trading-bot-using-python-and-alpaca-markets-72473d052dff)
+4. [Step-by-Step Guide to Adding the MACD to Your Python Trading Bot](https://appnologyjames.medium.com/step-by-step-guide-to-adding-the-macd-to-your-python-trading-bot-32cbcceea13e)
