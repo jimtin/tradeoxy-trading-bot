@@ -88,10 +88,10 @@ def get_historic_bars(symbols: list, timeframe: str, limit: int, start_date: dat
         "start": start_date,
         "end": end_date,
         "adjustment": "raw",
-        "feed": "sip",
+        "feed": "iex",
         "sort": "asc"
     }
-
+    
     # Set the API endpoint
     url = f"https://data.alpaca.markets/v2/stocks/bars"
     # Send to the base function to query the API
