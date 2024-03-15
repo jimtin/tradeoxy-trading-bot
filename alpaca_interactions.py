@@ -60,6 +60,7 @@ def get_historic_bars(symbols: list, timeframe: str, limit: int, start_date: dat
 
     # Check that the start_date and end_date are datetime objects
     if not isinstance(start_date, datetime.datetime):
+        print("The start_date must be a datetime object.")
         raise ValueError("The start_date must be a datetime object.")
     if not isinstance(end_date, datetime.datetime):
         raise ValueError("The end_date must be a datetime object.")
@@ -72,7 +73,7 @@ def get_historic_bars(symbols: list, timeframe: str, limit: int, start_date: dat
     # Check that the start date is not after the end date
     if start_date > end_date:
         raise ValueError("The start date cannot be after the end date.")
-
+    
     # Convert the symbols list to a comma-separated string
     symbols_joined = ",".join(symbols)
 
@@ -93,7 +94,6 @@ def get_historic_bars(symbols: list, timeframe: str, limit: int, start_date: dat
 
     # Set the API endpoint
     url = f"https://data.alpaca.markets/v2/stocks/bars"
-
     # Send to the base function to query the API
     try:
         json_response = query_alpaca_api(url, params)
