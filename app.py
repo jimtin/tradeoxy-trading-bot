@@ -1,11 +1,12 @@
 import alpaca_interactions as alpaca
 import datetime
-import strategies
+import indicators
 
 # List of symbols
-symbols = ["AAPL"]
+symbols = ["AAPL", "GOOGL", "META"]
 max_number_of_candles = 1000
 timeframe = "1hour"
+indicator = "bollinger"
 
 # Function to run the trading bot
 def auto_run_trading_bot():
@@ -18,8 +19,10 @@ def auto_run_trading_bot():
     end_date = datetime.datetime.now() - datetime.timedelta(days=1) # Note that if you have a premium subscription you can remove this restriction
     # Set the start date to one year ago
     start_date = end_date - datetime.timedelta(days=365)
-    #### Calculate the RSI Strategy ####
+    #### Calculate the an indicator ####
     for symbol in symbols:
+        # Save the symbol text
+        symbol_text = symbol
         # Convert symbol to a list
         symbol = [symbol]
         # Get the historical data for the symbol
@@ -30,16 +33,27 @@ def auto_run_trading_bot():
             end_date=end_date, 
             limit=max_number_of_candles
         )
-        # Calculate the RSI High Low Strategy
-        rsi_high_low_strategy = strategies.calc_strategy(
+        # Calculate the specified indicator
+        print(f"Calculating the {indicator} for {symbol_text}")
+        indicator_result = indicators.calc_indicator(
+            indicator_name=indicator,
             historical_data=symbol_historical_data,
-            strategy_name="rsi_high_low",
-            rsi_period=14,
-            rsi_high=70,
-            rsi_low=30
+            bollinger_period=20,
+            bollinger_std=2
         )
-        # Print the RSI Strategy data
-        print(rsi_high_low_strategy)
+        # Branch based on indicator_result
+        if indicator_result["outcome"] == "successful":
+            # Print succcess
+            print(f"The {indicator} was successfully calculated for {symbol_text}")
+            # Extract the values
+            values_dataframe = indicator_result["values"]
+            print(values_dataframe)
+        else:
+            # Print and error
+            print(f"An error occurred when calculating the {indicator} for {symbol_text}")
+            # Print the full message
+            print(indicator_result)
+        
 
 
 # Main function for program

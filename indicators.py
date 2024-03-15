@@ -71,6 +71,29 @@ def calc_indicator(indicator_name: str, historical_data: pandas.DataFrame, **kwa
         except Exception as exception:
             print(f"An exception occurred when calculating the RSI: {exception}")
             raise exception
+    elif indicator_name == "bollinger":
+        # Set the indicator to bollinger in the return dictionary
+        return_dictionary["indicator"] = "bollinger"
+        try:
+            # Check the kwargs for the Bollinger Bands period and Bollinger Bands standard deviation
+            bollinger_period = kwargs["bollinger_period"]
+            bollinger_std = kwargs["bollinger_std"]
+            # Get the Bollinger Bands values
+            bollinger_data = calc_bollinger(
+                historical_data=historical_data,
+                bollinger_period=bollinger_period,
+                bollinger_std=bollinger_std
+            )
+            # Set the values in the return dictionary
+            return_dictionary["values"] = bollinger_data["values"]
+            # Set the indicator outcome in the return dictionary
+            return_dictionary["indicator_outcome"] = bollinger_data["indicator_outcome"]
+            # Set the outcome to successful
+            return_dictionary["outcome"] = "calculated"
+
+        except Exception as exception:
+            print(f"An exception occurred when calculating the Bollinger Bands: {exception}")
+            raise exception
     # If the indicator name not recognised, raise a ValueError
     else:
         raise ValueError(f"The indicator {indicator_name} is not recognised.")
@@ -201,5 +224,65 @@ def calc_rsi(historical_data: pandas.DataFrame, rsi_period: int=14, rsi_high: in
     # Add the values to the return dictionary
     return_dictionary["values"] = historical_data
 
+    # Return the dictionary
+    return return_dictionary
+
+
+# Function to calculate Bollinger Bands
+def calc_bollinger(historical_data: pandas.DataFrame, bollinger_period: int=20, bollinger_std: int=2) -> dict:
+    """
+    Function to calculate Bollinger Bands
+    :param historical_data: The historical data to calculate the Bollinger Bands from
+    :param bollinger_period: The Bollinger Bands period
+    :param bollinger_std: The Bollinger Bands standard deviation
+    """
+    # Create a return dictionary
+    return_dictionary = {
+        "outcome": "unsuccessful",
+        "indicator": "bollinger",
+        "values": None,
+        "indicator_outcome": None
+    }
+
+    # Check that the Bollinger Bands period is greater than 0
+    if bollinger_period <= 0:
+        raise ValueError("The Bollinger Bands period must be greater than 0.")
+    # Check that the length of the dataframe is greater than the Bollinger Bands period
+    if len(historical_data) < bollinger_period:
+        raise ValueError("The length of the dataframe must be greater than the Bollinger Bands period.")
+
+    try:
+        # Get the Bollinger Bands values
+        upper_band, middle_band, lower_band = talib.BBANDS(
+            historical_data["candle_close"],
+            timeperiod=bollinger_period,
+            nbdevup=bollinger_std,
+            nbdevdn=bollinger_std
+        )
+    except Exception as exception:
+        print(f"An exception occurred when calculating the Bollinger Bands: {exception}")
+        raise exception
+
+    # Add the Bollinger Bands values to the historical data
+    historical_data["bollinger_upper_band"] = upper_band
+    historical_data["bollinger_middle_band"] = middle_band
+    historical_data["bollinger_lower_band"] = lower_band
+
+    # Create a new column called bollinger_signal and set the value to hold
+    historical_data["bollinger_signal"] = "hold"
+    # Set the bollinger_signal to oversold when the candle_close is less than the lower_band
+    historical_data.loc[historical_data["candle_close"] < lower_band, "bollinger_signal"] = "oversold"
+    # Set the bollinger_signal to overbought when the candle_close is greater than the upper_band
+    historical_data.loc[historical_data["candle_close"] > upper_band, "bollinger_signal"] = "overbought"
+    
+    # Get the last row of the historical data and get the Bollinger Bands signal. Set this to value of indicator_outcome in return_dictionary
+    return_dictionary["indicator_outcome"] = historical_data["bollinger_signal"].iloc[-1]
+    
+    # Add the values to the return dictionary
+    return_dictionary["values"] = historical_data
+    
+    # Set the outcome to successful
+    return_dictionary["outcome"] = "calculated"
+    
     # Return the dictionary
     return return_dictionary
