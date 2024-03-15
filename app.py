@@ -3,7 +3,7 @@ import datetime
 import indicators
 
 # List of symbols
-symbols = ["AAPL", "GOOGL", "META"]
+symbols = ["AAPL"]
 max_number_of_candles = 1000
 timeframe = "1hour"
 indicator = "bollinger"
@@ -42,7 +42,7 @@ def auto_run_trading_bot():
             bollinger_std=2
         )
         # Branch based on indicator_result
-        if indicator_result["outcome"] == "successful":
+        if indicator_result["outcome"] == "calculated":
             # Print succcess
             print(f"The {indicator} was successfully calculated for {symbol_text}")
             # Extract the values
