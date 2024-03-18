@@ -25,3 +25,4 @@ The best way to use this repo is in companionship with the various pieces of con
 3. [Step-by-Step Guide to Adding the RSI to Your Stock Trading Bot using Python and Alpaca Markets](https://appnologyjames.medium.com/step-by-step-guide-to-adding-the-rsi-to-your-stock-trading-bot-using-python-and-alpaca-markets-72473d052dff)
 4. [Step-by-Step Guide to Adding the MACD to Your Python Trading Bot](https://appnologyjames.medium.com/step-by-step-guide-to-adding-the-macd-to-your-python-trading-bot-32cbcceea13e)
 5. [Step-by-Step Guide to Add Bollinger Bands to Your Trading Bot](https://medium.com/@appnologyjames/step-by-step-guide-to-add-bollinger-bands-%EF%B8%8F-to-your-trading-bot-c3b858926e12)
+6. [Step-by-Step Guide to Adding the Harami Technical Indicator to Your Stock Trading Bot with TA Lib](https://medium.com/@appnologyjames/step-by-step-guide-to-adding-the-harami-technical-indicator-to-your-stock-trading-bot-with-ta-lib-a5b27f192f17)
