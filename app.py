@@ -6,7 +6,7 @@ import indicators
 symbols = ["AAPL"]
 max_number_of_candles = 1000
 timeframe = "1hour"
-indicator = "bollinger"
+indicator = "harami"
 
 # Function to run the trading bot
 def auto_run_trading_bot():
@@ -37,9 +37,7 @@ def auto_run_trading_bot():
         print(f"Calculating the {indicator} for {symbol_text}")
         indicator_result = indicators.calc_indicator(
             indicator_name=indicator,
-            historical_data=symbol_historical_data,
-            bollinger_period=20,
-            bollinger_std=2
+            historical_data=symbol_historical_data
         )
         # Branch based on indicator_result
         if indicator_result["outcome"] == "calculated":
@@ -48,6 +46,7 @@ def auto_run_trading_bot():
             # Extract the values
             values_dataframe = indicator_result["values"]
             print(values_dataframe)
+            
         else:
             # Print and error
             print(f"An error occurred when calculating the {indicator} for {symbol_text}")

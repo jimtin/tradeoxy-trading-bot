@@ -94,6 +94,25 @@ def calc_indicator(indicator_name: str, historical_data: pandas.DataFrame, **kwa
         except Exception as exception:
             print(f"An exception occurred when calculating the Bollinger Bands: {exception}")
             raise exception
+    # Add the Harami pattern
+    elif indicator_name == "harami":
+        # Set the indicator to harami in the return dictionary
+        return_dictionary["indicator"] = "harami"
+        try:
+            # Get the Harami pattern
+            harami_data = calc_harami(
+                historical_data=historical_data
+            )
+            # Set the values in the return dictionary
+            return_dictionary["values"] = harami_data["values"]
+            # Set the indicator outcome in the return dictionary
+            return_dictionary["indicator_outcome"] = harami_data["indicator_outcome"]
+            # Set the outcome to successful
+            return_dictionary["outcome"] = "calculated"
+
+        except Exception as exception:
+            print(f"An exception occurred when calculating the Harami pattern: {exception}")
+            raise exception
     # If the indicator name not recognised, raise a ValueError
     else:
         raise ValueError(f"The indicator {indicator_name} is not recognised.")
@@ -284,5 +303,55 @@ def calc_bollinger(historical_data: pandas.DataFrame, bollinger_period: int=20, 
     # Set the outcome to successful
     return_dictionary["outcome"] = "calculated"
     
+    # Return the dictionary
+    return return_dictionary
+
+
+# Calculate the Harami candlestick pattern
+def calc_harami(historical_data: pandas.DataFrame) -> dict:
+    """
+    Function to calculate the Harami candlestick pattern
+    :param historical_data: The historical data to calculate the Harami candlestick pattern from
+    """
+    # Create a return dictionary
+    return_dictionary = {
+        "outcome": "unsuccessful",
+        "indicator": "harami",
+        "values": None,
+        "indicator_outcome": None
+    }
+
+    # Check that the length of the dataframe is greater than 1
+    if len(historical_data) < 2:
+        raise ValueError("The length of the dataframe must be greater than 1 to calculate the Harami candlestick pattern.")
+    
+    # Calculate the Harami pattern using the TA Lib function cdlharami
+    harami_pattern = talib.CDLHARAMI(
+        historical_data["candle_open"],
+        historical_data["candle_high"],
+        historical_data["candle_low"],
+        historical_data["candle_close"]
+    )
+    
+    # Add the Harami pattern to the historical data
+    historical_data["harami_pattern"] = harami_pattern    
+    
+    # Create a new column called harami_signal and set the value to hold
+    historical_data["harami_signal"] = "hold"
+    
+    # Set the harami_signal to bearish when the Harami pattern is less than 0
+    historical_data.loc[historical_data["harami_pattern"] < 0, "harami_signal"] = "bearish"
+    # Set the harami_signal to bullish when the Harami pattern is greater than 0
+    historical_data.loc[historical_data["harami_pattern"] > 0, "harami_signal"] = "bullish"
+    
+    # Get the last row of the historical data and get the Harami signal. Set this to value of indicator_outcome in return_dictionary
+    return_dictionary["indicator_outcome"] = historical_data["harami_signal"].iloc[-1]
+
+    # Add the values to the return dictionary
+    return_dictionary["values"] = historical_data
+
+    # Set the outcome to successful
+    return_dictionary["outcome"] = "calculated"
+
     # Return the dictionary
     return return_dictionary
