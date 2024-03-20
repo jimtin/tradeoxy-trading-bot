@@ -38,7 +38,7 @@ def auto_run_trading_bot():
         indicator_result = indicators.calc_indicator(
             indicator_name=indicator,
             historical_data=symbol_historical_data,
-            adx_period=14
+            adx_period=14 
         )
         # Branch based on indicator_result
         if indicator_result["outcome"] == "calculated":
