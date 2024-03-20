@@ -26,6 +26,7 @@ The best way to use this repo is in companionship with the various pieces of con
 4. [Step-by-Step Guide to Adding the MACD to Your Python Trading Bot](https://appnologyjames.medium.com/step-by-step-guide-to-adding-the-macd-to-your-python-trading-bot-32cbcceea13e)
 5. [Step-by-Step Guide to Add Bollinger Bands to Your Trading Bot](https://medium.com/@appnologyjames/step-by-step-guide-to-add-bollinger-bands-%EF%B8%8F-to-your-trading-bot-c3b858926e12)
 6. [Step-by-Step Guide to Adding the Harami Technical Indicator to Your Stock Trading Bot with TA Lib](https://medium.com/@appnologyjames/step-by-step-guide-to-adding-the-harami-technical-indicator-to-your-stock-trading-bot-with-ta-lib-a5b27f192f17)
+7. [Step-by-Step Guide to Adding the ADX Indicator to Your Stock Trading Bot with Python, TA Lib, and Alpaca Markets](https://medium.com/@appnologyjames/step-by-step-guide-to-adding-the-adx-indicator-to-your-stock-trading-bot-with-python-ta-lib-and-f70e0d559ff6)
 
 ### YouTube Content
 1. [Build Your Own Trading Bot Development Environment w/ TA Lib, AI Tools, Works from Anywhere](https://youtu.be/M8Eda-5T55M)
