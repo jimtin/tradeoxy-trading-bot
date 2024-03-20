@@ -113,6 +113,28 @@ def calc_indicator(indicator_name: str, historical_data: pandas.DataFrame, **kwa
         except Exception as exception:
             print(f"An exception occurred when calculating the Harami pattern: {exception}")
             raise exception
+    # Add the ADX indicator
+    elif indicator_name == "adx":
+        # Set the indicator to adx in the return dictionary
+        return_dictionary["indicator"] = "adx"
+        try:
+            # Check the kwargs for the ADX period
+            adx_period = kwargs["adx_period"]
+            # Get the ADX values
+            adx_data = calc_adx(
+                historical_data=historical_data,
+                timeperiod=adx_period
+            )
+            # Set the values in the return dictionary
+            return_dictionary["values"] = adx_data["values"]
+            # Set the indicator outcome in the return dictionary
+            return_dictionary["indicator_outcome"] = adx_data["indicator_outcome"]
+            # Set the outcome to successful
+            return_dictionary["outcome"] = "calculated"
+
+        except Exception as exception:
+            print(f"An exception occurred when calculating the ADX: {exception}")
+            raise exception
     # If the indicator name not recognised, raise a ValueError
     else:
         raise ValueError(f"The indicator {indicator_name} is not recognised.")
@@ -352,6 +374,63 @@ def calc_harami(historical_data: pandas.DataFrame) -> dict:
 
     # Set the outcome to successful
     return_dictionary["outcome"] = "calculated"
+
+    # Return the dictionary
+    return return_dictionary
+
+
+# Add the ADX indicator
+def calc_adx(historical_data: pandas.DataFrame, timeperiod=14):
+    """
+    Function to calculate the ADX indicator
+    :param historical_data: The historical data to calculate the ADX from
+    :param timeperiod: The time period for the ADX
+    """
+    # Create a return dictionary
+    return_dictionary = {
+        "outcome": "unsuccessful",
+        "indicator": "adx",
+        "values": None,
+        "indicator_outcome": None
+    }
+
+    # Check that the time period is greater than 0
+    if timeperiod <= 2:
+        raise ValueError("The time period must be greater than 0.")
+    # Check that the length of the dataframe is greater than the time period
+    if len(historical_data) < timeperiod:
+        raise ValueError("The length of the dataframe must be greater than the time period.")
+
+    try:
+        # Get the ADX values
+        adx_values = talib.ADX(
+            historical_data["candle_high"],
+            historical_data["candle_low"],
+            historical_data["candle_close"],
+            timeperiod=timeperiod
+        )
+    except Exception as exception:
+        print(f"An exception occurred when calculating the ADX: {exception}")
+        raise exception
+
+    # Add the ADX values to the historical data
+    historical_data["adx"] = adx_values
+
+    # Set the outcome to successful
+    return_dictionary["outcome"] = "calculated"
+
+    # Create a new column called adx_signal and set the value to hold
+    historical_data["adx_signal"] = "hold"
+    # Set the adx_signal to strong when the ADX is greater than 25
+    historical_data.loc[historical_data["adx"] > 25, "adx_signal"] = "strong"
+    # Set the adx_signal to weak when the ADX is less than 25
+    historical_data.loc[historical_data["adx"] < 25, "adx_signal"] = "weak"
+
+    # Get the last row of the historical data and get the ADX signal. Set this to value of indicator_outcome in return_dictionary
+    return_dictionary["indicator_outcome"] = historical_data["adx_signal"].iloc[-1]
+
+    # Add the values to the return dictionary
+    return_dictionary["values"] = historical_data
 
     # Return the dictionary
     return return_dictionary

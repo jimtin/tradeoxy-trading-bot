@@ -6,7 +6,7 @@ import indicators
 symbols = ["AAPL"]
 max_number_of_candles = 1000
 timeframe = "1hour"
-indicator = "harami"
+indicator = "adx"
 
 # Function to run the trading bot
 def auto_run_trading_bot():
@@ -37,7 +37,8 @@ def auto_run_trading_bot():
         print(f"Calculating the {indicator} for {symbol_text}")
         indicator_result = indicators.calc_indicator(
             indicator_name=indicator,
-            historical_data=symbol_historical_data
+            historical_data=symbol_historical_data,
+            adx_period=14
         )
         # Branch based on indicator_result
         if indicator_result["outcome"] == "calculated":
