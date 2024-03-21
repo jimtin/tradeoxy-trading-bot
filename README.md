@@ -30,3 +30,4 @@ The best way to use this repo is in companionship with the various pieces of con
 
 ### YouTube Content
 1. [Build Your Own Trading Bot Development Environment w/ TA Lib, AI Tools, Works from Anywhere](https://youtu.be/M8Eda-5T55M)
+2. [Alpaca Markets vs US Stock Market: Get Your API Keys](https://youtu.be/iqXcpUUtURQ)
