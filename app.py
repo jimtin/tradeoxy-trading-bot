@@ -1,4 +1,4 @@
-import alpaca_interactions as alpaca
+import alpaca_markets as alpaca
 import datetime
 import indicators
 
