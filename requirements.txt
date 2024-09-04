@@ -1,4 +1,6 @@
 requests
-TA-Lib
 pandas
 python-dotenv
+MetaTrader5
+discord
+streamlit
