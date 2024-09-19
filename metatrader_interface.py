@@ -25,6 +25,15 @@ def start_metatrader(mt5_username=None, mt5_password=None, mt5_server=None, mt5_
     # Check if the terminal64 file exists
     if not os.path.exists(terminal64filepath):
         raise Exception(f"The terminal64 file does not exist at the specified path {terminal64filepath}")
+    # Convert the inputs to the right data types
+    # Uname is a integer
+    uname = int(uname)
+    # Pword is a string
+    pword = str(pword)
+    # Server is a string
+    server = str(server)
+    # Filepath is a string
+    terminal64filepath = str(terminal64filepath)
     # Try to start MetaTrader 5
     try:
         mt5_start = MetaTrader5.initialize(
@@ -57,3 +66,21 @@ def start_metatrader(mt5_username=None, mt5_password=None, mt5_server=None, mt5_
     else:
         print("MetaTrader 5 failed to start")
         raise Exception("MetaTrader 5 failed to start")
+
+
+# Function to get a list of all the symbols in MetaTrader 5
+def get_my_symbols():
+    """
+    Function to get a list of all the symbols in MetaTrader 5
+    """
+    # Get the symbols
+    try:
+        symbols = MetaTrader5.symbols_get()
+    except Exception as exception:
+        raise Exception(f"An exception occurred when getting the symbols for MetaTrader 5: {exception}")
+    all_symbols = []
+    # Iterate through the symbols and get the names
+    for symbol in symbols:
+        all_symbols.append(symbol.name)
+    # Otherwise, return the symbols
+    return all_symbols

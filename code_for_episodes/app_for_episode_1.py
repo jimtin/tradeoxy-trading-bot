@@ -3,8 +3,6 @@ import discord_interaction
 import metatrader_interface
 import dotenv
 import os
-import helper_functions
-
 
 
 if __name__ == '__main__':
@@ -99,19 +97,6 @@ if __name__ == '__main__':
                 # If successful, log in to MetaTrader 5
                 if mt5_start:
                     copilot_container.success("MetaTrader 5 started successfully")
-                    # Load the symbols from MetaTrader 5
-                    symbols = helper_functions.get_symbols('MetaTrader 5')
-                    # Populate the symbols dropdown
-                    symbol = trading_platform.selectbox(
-                        'Symbol', 
-                        symbols, 
-                        index=None, 
-                        key=None, 
-                        help=None, 
-                        on_change=None, 
-                        args=None, 
-                        kwargs=None
-                    )
                 else:
                     copilot_container.error(f"MetaTrader 5 failed to start. Reason: {mt5_start}")
             except Exception as exception:
@@ -135,7 +120,3 @@ if __name__ == '__main__':
         index=None,
         placeholder='Select an option'
     )
-    
-    
-        
-     
