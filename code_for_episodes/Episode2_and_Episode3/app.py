@@ -116,8 +116,18 @@ if __name__ == '__main__':
                     copilot_container.error(f"MetaTrader 5 failed to start. Reason: {mt5_start}")
             except Exception as exception:
                 copilot_container.error(f"An exception occurred when starting MetaTrader 5: {exception}")
-    else:
-        copilot_container.write('Alpaca is not supported yet')
+    elif trading_platform_selection == 'Alpaca':
+        if settings_file == 'Yes':
+            # Load environment variables from the .env file
+            dotenv.load_dotenv()
+            # Get the Alpaca API key and secret key from the .env file
+            alpaca_api_key = os.getenv('alpaca_api_key')
+            alpaca_api_secret_key = os.getenv('alpaca_api_secret_key')
+        else:
+            # Add a text input to the third column
+            alpaca_api_key = trading_platform.text_input('API Key', value='', max_chars=None, key=None, type='default')
+            # Add a text input to the fourth column
+            alpaca_api_secret_key = trading_platform.text_input('Secret Key', value='', max_chars=None, key=None, type='password')
     # Add a selectbox to the fourth column
     make_trades = settings.selectbox(
         'Make Trades', 
@@ -126,6 +136,3 @@ if __name__ == '__main__':
         placeholder='Select an option'
     )
     
-    
-        
-     
