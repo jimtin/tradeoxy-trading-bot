@@ -19,6 +19,16 @@ async def on_ready():
     
     
 @client.event
+async def test_message():
+    """
+    Function to test the message sending functionality
+    """
+    # Send a message to the channel
+    await client.send_message('TradeOxy Alert: Testing the Discord bot')
+    return True
+    
+    
+@client.event
 async def on_message(message):
     """
     Discord message listener
