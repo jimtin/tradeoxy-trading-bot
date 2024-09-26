@@ -29,5 +29,3 @@ def start_and_test_discord_bot(token: str) -> bool:
     test_message = discord_interaction.test_message()
     return True
 
-
-start_and_test_discord_bot("MTI3Mzg3MjQ4MDMzNDkwNTQ2Nw.Gu14wk.k65gBix12dmk1cpuD3XEOmt0TYLS3P9NFvmm9k")
