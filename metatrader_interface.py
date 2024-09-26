@@ -1,6 +1,8 @@
 import os
 import dotenv
 import MetaTrader5
+import pandas
+import data_normalizer
 
 # Load environment variables
 dotenv.load_dotenv()
@@ -46,7 +48,6 @@ def start_metatrader(mt5_username=None, mt5_password=None, mt5_server=None, mt5_
         raise Exception(f"An exception occurred when starting MetaTrader 5: {exception}")
     # If successful, log in to MetaTrader 5
     if mt5_start:
-        print("MetaTrader 5 started successfully")
         try:
             login = MetaTrader5.login(
                 login=uname,
@@ -57,7 +58,6 @@ def start_metatrader(mt5_username=None, mt5_password=None, mt5_server=None, mt5_
             raise exception
         # If successful, return True
         if login:
-            print("Logged in to MetaTrader 5")
             return True
         # If not successful, raise an exception
         else:
@@ -84,3 +84,74 @@ def get_my_symbols():
         all_symbols.append(symbol.name)
     # Otherwise, return the symbols
     return all_symbols
+
+
+# Function to get data from MetaTrader 5
+def get_historic_data(symbol, timeframe):
+    """
+    Function to get data from MetaTrader 5
+    """
+    # Convert the timeframe to something MT5 friendly
+    timeframe = convert_to_mt5_timeframe(timeframe)
+    # Get the data
+    try:
+        data = MetaTrader5.copy_rates_from_pos(symbol, timeframe, 0, 10)
+    except Exception as exception:
+        raise Exception(f"An exception occurred when getting the data for MetaTrader 5: {exception}")
+    # Convert the data to a DataFrame
+    data = pandas.DataFrame(data)
+    # Pass the data to the data normalizer
+    data = data_normalizer.normalize_data_format(data, 'MetaTrader5')
+    # Return the data
+    return data
+
+
+# Function to convert the timeframe to something MT5 friendly
+def convert_to_mt5_timeframe(timeframe: str):
+    """
+    Function to convert the timeframe to something MT5 friendly
+    """
+    if timeframe == "M1":
+        return MetaTrader5.TIMEFRAME_M1
+    elif timeframe == "M2":
+        return MetaTrader5.TIMEFRAME_M2
+    elif timeframe == "M3":
+        return MetaTrader5.TIMEFRAME_M3
+    elif timeframe == "M4":
+        return MetaTrader5.TIMEFRAME_M4
+    elif timeframe == "M5":
+        return MetaTrader5.TIMEFRAME_M5
+    elif timeframe == "M6":
+        return MetaTrader5.TIMEFRAME_M6
+    elif timeframe == "M10":
+        return MetaTrader5.TIMEFRAME_M10
+    elif timeframe == "M12":
+        return MetaTrader5.TIMEFRAME_M12
+    elif timeframe == "M15":
+        return MetaTrader5.TIMEFRAME_M15
+    elif timeframe == "M20":
+        return MetaTrader5.TIMEFRAME_M20
+    elif timeframe == "M30":
+        return MetaTrader5.TIMEFRAME_M30
+    elif timeframe == "H1":
+        return MetaTrader5.TIMEFRAME_H1
+    elif timeframe == "H2":
+        return MetaTrader5.TIMEFRAME_H2
+    elif timeframe == "H3":
+        return MetaTrader5.TIMEFRAME_H3
+    elif timeframe == "H4":
+        return MetaTrader5.TIMEFRAME_H4
+    elif timeframe == "H6":
+        return MetaTrader5.TIMEFRAME_H6
+    elif timeframe == "H8":
+        return MetaTrader5.TIMEFRAME_H8
+    elif timeframe == "H12":
+        return MetaTrader5.TIMEFRAME_H12
+    elif timeframe == "D1":
+        return MetaTrader5.TIMEFRAME_D1
+    elif timeframe == "W1":
+        return MetaTrader5.TIMEFRAME_W1
+    elif timeframe == "MN1":
+        return MetaTrader5.TIMEFRAME_MN1
+    else:
+        raise Exception("The timeframe is not supported")
