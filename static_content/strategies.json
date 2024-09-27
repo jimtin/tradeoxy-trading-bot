@@ -1,0 +1,10 @@
+{
+    "strategies": [
+        {
+            "name": "Test Strategy",
+            "description": "This is the first strategy",
+            "platforms":["MetaTrader5"],
+            "id": 1
+        }
+    ]
+}

@@ -1,0 +1,6 @@
+1. Added strategy selector to UI
+2. This required adding a strategies folder, and placing a test_strategy in it
+3. This required adding strategy routing
+4. This required defining how a strategy will work
+5. This required adding in a list of strategies to select from
+6. This required updating the helper_functions to get the strategies and return them to the UI
